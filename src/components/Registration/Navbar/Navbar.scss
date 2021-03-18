@@ -1,0 +1,20 @@
+.NavBar{
+    background-image:white;
+    img.Logo{
+        width: 120px;
+    }
+    .Nav{
+        p{
+        font-size: 17px;
+        padding: 0 13px;
+        margin:0;
+        font-weight: 500;
+        color: #000;
+        text-decoration:none;
+        &:hover{
+        color:#000;
+        text-decoration:none;
+        }
+        }
+    }
+}
