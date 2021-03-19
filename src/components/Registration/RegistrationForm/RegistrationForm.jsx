@@ -6,7 +6,7 @@ import './RegistrationForm.scss'
 import {Button} from 'gestalt';
 import {FcGoogle} from 'react-icons/fc';
 
-export default function RegistrationForm() {
+export default function RegistrationForm(props) {
     return (
         <div className="RegistrationForm d-flex justify-content-center align-items-center w-100 px-5 pt-5">
           <InputGroup className="mb-3">
@@ -41,7 +41,7 @@ export default function RegistrationForm() {
            <p className="py-2 m-0 font-weight-bold">OR</p>
            <button className="googleButton m-0"><FcGoogle/> Continua con Google</button>
            <button className="googleButton m-0 mt-2"><FaFacebook className="fbIcon"/> Continua con Facebook</button>
-           <button className="LogInButton m-0 mt-2">Log in</button>
+           <button className="LogInButton m-0 mt-2" onClick={()=>props.setLogin(!props.login)}>Log in</button>
         </div>
     )
 }

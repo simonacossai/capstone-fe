@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import NavBar from '../Navbar/NavBar';
 import {Container, Row, Col} from 'react-bootstrap';
 import Carousel from '../Carousel/Carousel.jsx'
@@ -7,9 +7,10 @@ import './RegistrationPage.scss';
 import {Link} from 'react-scroll';
 import loginImage from '../../../assets/loginImage.jpg';
 import RegistrationForm from '../RegistrationForm/RegistrationForm'
+import LoginForm from '../LoginForm/LoginForm';
 
 export default function RegistrationPage() {
-
+    const [login, setLogin] = useState(true);
     return (
         <div>
         <div className="RegistrationPage" id="welcome">
@@ -36,7 +37,7 @@ export default function RegistrationPage() {
         </Link>
             <Row className="d-flex justify-content-center align-items-center text-center m-0 LoginRow">
                <Col lg={6} className="m-0 p-0 d-flex justify-content-center align-items-center text-center w-100">
-               <RegistrationForm/>
+                   {login ? <LoginForm login={login} setLogin={setLogin}/> : <RegistrationForm login={login} setLogin={setLogin}/>}
                </Col>
                <Col lg={6} className="m-0 p-0 d-flex justify-content-center align-items-center text-center">
                 <img src={loginImage} className="rightColImg" alt="loginPageImage" />

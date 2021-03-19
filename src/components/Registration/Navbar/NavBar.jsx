@@ -3,6 +3,7 @@ import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import logo from '../../../assets/logo.png';
 import {Button, Box} from 'gestalt';
 import './Navbar.scss';
+import {Link} from 'react-scroll';
 
 export default function NavBar() {
     return (
@@ -18,12 +19,16 @@ export default function NavBar() {
             <p eventKey={2} href="#memes">
               Blog            
             </p>
+            <Link to="login" smooth={true} duration={900}>
             <Box paddingX={2}>
             <Button text="Log in" inline color="red"  display="flex" paddingX={3} marginEnd={3}/>
             </Box>
+            </Link>
+            <Link to="login" smooth={true} duration={900}>
             <Box paddingX={2}>
             <Button text="Sign up" inline color="grey"/>
             </Box>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
