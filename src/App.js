@@ -5,11 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import 'animate.css'
 import './App.css';
 import RegistrationPage from './components/Registration/RegistrationPage/RegistrationPage';
-import {useEffect} from 'react';
 import { messaging } from "./init-fcm";
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Component} from 'react';
-
+import Home from './components/Home/Home';
+import NavBar from './components/Home/NavBar/NavBar';
 class App extends Component {
   componentDidMount=()=> {
    messaging.requestPermission()
@@ -26,7 +26,8 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-      <RegistrationPage/>
+      <Route exact path="/" component={RegistrationPage} />
+          <NavBar/>
         </Router>
     </div>
   );

@@ -4,6 +4,7 @@ import logo from '../../../assets/logo.png';
 import {Button, Box} from 'gestalt';
 import './Navbar.scss';
 import {Link} from 'react-scroll';
+import {NavLink} from 'react-router-dom';
 
 export default function NavBar() {
     return (
@@ -12,7 +13,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="Nav ml-auto p-0 d-flex justify-content-center align-items-center">
-            <p href="#deets">About</p>
+            <NavLink to="/feed"><p href="#deets">About</p></NavLink>
             <p hrefeventKey={2} href="#memes">
               Business            
             </p>

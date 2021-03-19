@@ -1,0 +1,26 @@
+.NavBar{
+    background-color: white!important;
+    .navbar-link{
+        padding: 7px 20px;
+        color: black;
+        font-weight: 500;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all .3s ease-out;
+    }
+    .selected{
+        background-color: black;
+        border-radius: 20px;
+        color: white!important;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+        transition: all .3s ease-in-out;
+    }
+    #searchField{
+        width: 400px!important;
+    }
+    .NavBarIcon{
+        font-size: 23px;
+    }
+}
