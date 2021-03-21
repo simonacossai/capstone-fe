@@ -6,11 +6,13 @@ import 'animate.css'
 import './App.css';
 import RegistrationPage from './components/Registration/RegistrationPage/RegistrationPage';
 import { messaging } from "./init-fcm";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import {Component} from 'react';
 import Home from './components/Home/Home';
 import NavBar from './components/Home/NavBar/NavBar';
+
 class App extends Component {
+
   componentDidMount=()=> {
    messaging.requestPermission()
      .then(async function() {
@@ -22,18 +24,23 @@ class App extends Component {
      });
  navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
  }
+
+
   render(){
+    if(this.props.location.pathname==="/"){
+      document.body.style.overflow="hidden";
+    }
+    
     return (
       <div className="App">
-        <Router>
-      <Route exact path="/" component={RegistrationPage} />
-          <NavBar/>
-        </Router>
+          <Route exact path="/" component={RegistrationPage} />
+          {this.props.location.pathname !== "/" && <NavBar/>}
+          <Route exact path="/feed" component={Home} />
     </div>
   );
 }
 }
 
-export default App;
+export default withRouter(App);
 
 

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -17,7 +18,9 @@ if ("serviceWorker" in navigator) {
 
 ReactDOM.render(
   <React.StrictMode>
+    <Router>
     <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

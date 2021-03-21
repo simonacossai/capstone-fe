@@ -12,7 +12,7 @@ import LoginForm from '../LoginForm/LoginForm';
 export default function RegistrationPage() {
     const [login, setLogin] = useState(true);
     return (
-        <div>
+        <>
         <div className="RegistrationPage" id="welcome">
             <NavBar/>
                 <Carousel/>
@@ -44,7 +44,7 @@ export default function RegistrationPage() {
                </Col>
             </Row>
         </Container>
-        </div>
+        </>
     )
 }
 
