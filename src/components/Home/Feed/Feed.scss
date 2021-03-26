@@ -24,6 +24,9 @@
             max-height:500px!important;
             min-height: 200px;
             margin: 10px 10px;
+            &:hover{
+                cursor: zoom-in;
+            }
         }
     }
 }

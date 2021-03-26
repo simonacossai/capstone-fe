@@ -8,7 +8,7 @@ import {FcGoogle} from 'react-icons/fc';
 
 export default function RegistrationForm(props) {
     return (
-        <div className="RegistrationForm d-flex justify-content-center align-items-center w-100 px-5 pt-5">
+        <div className="RegistrationForm d-flex justify-content-center align-items-center w-100 px-5 pt-5 animate__animated animate__fadeInLeft">
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
             <InputGroup.Text id="inputGroup-sizing-default" className="prepend"><FaUserCircle/></InputGroup.Text>

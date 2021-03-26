@@ -10,7 +10,9 @@ import {Route, withRouter} from 'react-router-dom';
 import {Component} from 'react';
 import Home from './components/Home/Home';
 import NavBar from './components/Home/NavBar/NavBar';
-
+import Details from './components/PinDetails/Details/Details';
+import Profile from './components/Profile/Profile';
+import AddPinComponent from './components/AddPinComponent/AddPinComponent';
 class App extends Component {
 
   componentDidMount=()=> {
@@ -30,12 +32,15 @@ class App extends Component {
     if(this.props.location.pathname==="/"){
       document.body.style.overflow="hidden";
     }
-    
+
     return (
       <div className="App">
           <Route exact path="/" component={RegistrationPage} />
           {this.props.location.pathname !== "/" && <NavBar/>}
           <Route exact path="/feed" component={Home} />
+          <Route exact path="/details" component={Details} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/addPin" component={AddPinComponent} />
     </div>
   );
 }

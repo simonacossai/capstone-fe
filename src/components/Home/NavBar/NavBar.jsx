@@ -12,11 +12,11 @@ export default function NavBar() {
 
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
-        <Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand>
+         <NavLink className="navbar-link" to="/"><Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand></NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <NavLink activeClassName="selected"  className="navbar-link" to="/feed">Home</NavLink>
-        <NavLink activeClassName="selected" className="navbar-link mx-1" to="/about">Today</NavLink>
-        <NavLink activeClassName="selected"  className="navbar-link"to="/login">About</NavLink>
+        <NavLink activeClassName="selected" className="navbar-link mx-1" to="/details">Today</NavLink>
+        <NavLink activeClassName="selected"  className="navbar-link"to="/profile">About</NavLink>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
           <SearchField
