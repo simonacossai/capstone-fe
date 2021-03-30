@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { Provider } from "react-redux";
+import configureStore from "./store";
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -18,9 +20,11 @@ if ("serviceWorker" in navigator) {
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={configureStore()}>
     <Router>
-    <App />
+      <App />
     </Router>
+  </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -65,5 +65,14 @@
             outline: none;
         }
     }
+    .categorySelect{
+        border:none;
+        border-bottom: 1px solid #929292;
+        color: #929292;
+        &:focus{
+            box-shadow: none;
+            outline: none;
+        }
+    }
    
 }

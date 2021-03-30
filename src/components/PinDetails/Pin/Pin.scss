@@ -20,17 +20,24 @@
             margin: 0 8px;
             font-weight: 700;
         }
-        .postLink{
-            text-decoration: underline;
+        .postTitle{
+            font-size:20px;
+            text-transform: capitalize;
+            font-weight: 700;
             margin: 10px 8px;
         }
         .postDescription{
             margin: 8px 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5; 
+            -webkit-box-orient: vertical;
         }
        .commentInput{
            width: 100%;
            border-radius: 16px;
-           padding: 8px 10px;
+           padding: 8px 8px;
            border: 2px solid #dadada;
            &:active{
                box-shadow: none;
@@ -42,19 +49,21 @@
            }
        }
        .commentsDiv{
-           margin-top:20px;
            overflow-y: scroll;
            width: 100%;
-           max-height: 140px;
+           margin-top: 20px;
+           position: relative;
+           max-height: 100px;
            &::-webkit-scrollbar {
             display: none;
             }
-       .commentDiv{
+       .singleCommentDiv{
         background-color: rgb(233, 233, 233);
         border-radius: 20px;
         padding: 5px;
         width: 100%;
-        margin: 10px 0;
+        position: relative;
+        margin: 10px 0 0 0;
         div{
             flex-direction: column;
         }

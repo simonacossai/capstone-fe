@@ -3,14 +3,17 @@ import './Details.scss';
 import {Container, Row} from 'react-bootstrap';
 import Pin from '../Pin/Pin';
 import AddPin from '../../AddPin/AddPin';
+import {withRouter} from 'react-router-dom';
 
-export default function Details() {
+function Details(props) {
     return (
        <Container>
            <Row className="d-flex justify-content-center align-items-center text-center">
-                <Pin/> 
+                <Pin id={props.match.params.id}/> 
                 <AddPin/>
            </Row>
        </Container>
     )
 }
+
+export default withRouter(Details)
