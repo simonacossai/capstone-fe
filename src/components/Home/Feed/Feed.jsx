@@ -31,7 +31,7 @@ function Feed(props) {
 
     
     return (
-       <Container className="m-0 p-0 Feed" fluid>
+       <Container className="m-0 p-0 Feed" fluid >
            <Row className="d-flex justify-content-center">
                {props.posts.allPosts.map((e)=>{
                    return(

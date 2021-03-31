@@ -1,6 +1,8 @@
 .Feed{
+    overflow: hidden!important;
     .postDiv{
         position: relative;
+        overflow: hidden!important;
         .postButton{
             position:absolute;
             right:0;

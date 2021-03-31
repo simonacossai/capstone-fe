@@ -33,7 +33,7 @@ class App extends Component {
     if(this.props.location.pathname==="/"){
       document.body.style.overflow="hidden";
     }else{
-      document.body.style.overflowY="scroll";
+      document.body.style.overflowY="unset";
     }
     return (
       <div className="App">

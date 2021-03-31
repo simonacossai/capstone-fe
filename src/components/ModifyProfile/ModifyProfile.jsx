@@ -3,8 +3,15 @@ import './ModifyProfile.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Avatar, Button, Box, TextField} from 'gestalt';
 import axios from 'axios';
+import { connect } from "react-redux";
 
-export default function ModifyProfile() {
+
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  setChanged: () => dispatch({type: "CHANGED"}),
+});
+
+function ModifyProfile(props) {
   const [userInfo, setUserInfo] = useState({})
   const [imageUrl, setImageUrl]=useState('');
   const [inputData, setInputData] = useState({
@@ -53,6 +60,7 @@ export default function ModifyProfile() {
         data: imageUrl,
       });
       if (response.data.path) {
+        props.setChanged()
        return response.data.path
       }   
     } catch (er) {
@@ -184,3 +192,5 @@ const publish = async (e)=> {
        </Container>
     )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModifyProfile)

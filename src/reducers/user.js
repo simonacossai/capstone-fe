@@ -10,6 +10,11 @@ export default function (state = {}, action) {
           ...state,
           data: []
         };
+      case "CHANGED": 
+        return{
+          ...state,
+          changed: !state.changed
+        }
       default:
         return state;
     }

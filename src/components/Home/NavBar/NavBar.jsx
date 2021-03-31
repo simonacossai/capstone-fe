@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Navbar, NavDropdown, Nav} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
 import logo from '../../../assets/logoP.png';
 import {SearchField, Box, Avatar, Dropdown} from 'gestalt';
 import './NavBar.scss';
@@ -8,6 +8,10 @@ import {FaBell} from 'react-icons/fa';
 import {AiFillMessage} from 'react-icons/ai';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
+
+
+const mapStateToProps = (state) => state;
 
 function NavBar(props) {
     const [value, setValue] = React.useState('');
@@ -34,7 +38,7 @@ function NavBar(props) {
     }
     useEffect(() => {
      getUser()
-    }, [])
+    }, [props.user.changed])
   
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
@@ -82,4 +86,4 @@ function NavBar(props) {
       </Navbar>
     )
 }
-export default withRouter(NavBar);
+export default withRouter(connect(mapStateToProps)(NavBar));

@@ -8,6 +8,7 @@ const composedEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const initialState = {
   user: {
       data:[],
+      changed: false,
   },
   posts:{
     allPosts:[],
