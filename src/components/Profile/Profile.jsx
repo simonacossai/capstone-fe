@@ -40,7 +40,7 @@ function Profile(props) {
     }, [])
 
     return (
-        <div>
+        <div className="animate__animated animate__fadeIn">
             <ProfileInfo user={user}/>
             <ProfilePosts posts={posts}/>
             <AddPin/>

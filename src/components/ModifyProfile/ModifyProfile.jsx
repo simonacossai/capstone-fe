@@ -86,8 +86,8 @@ const publish = async (e)=> {
   fetchUser()
   }, [])
     return (
-       <Container className="ModifyProfile mt-5">
-           <Row className="mt-5 pt-5">
+       <Container className="ModifyProfile mt-5 animate__animated animate__fadeIn">
+           <Row className="mt-5 pt-5 animate__animated animate__fadeIn">
                 <Col md={6} className="d-flex justify-content-center LeftColModifyProfile">
                     <h2>Edit your profile</h2>
                     <p>People who'll visit your profile will see these information</p>

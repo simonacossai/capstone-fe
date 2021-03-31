@@ -13,7 +13,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="Nav ml-auto p-0 d-flex justify-content-center align-items-center">
-            <NavLink to="/feed"><p href="#deets">About</p></NavLink>
+            <NavLink to="#"><p href="#deets">About</p></NavLink>
             <p hrefeventKey={2} href="#memes">
               Business            
             </p>

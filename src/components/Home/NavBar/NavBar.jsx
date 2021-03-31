@@ -1,16 +1,41 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Navbar, NavDropdown, Nav} from 'react-bootstrap';
 import logo from '../../../assets/logoP.png';
-import {SearchField, Box, Avatar} from 'gestalt';
+import {SearchField, Box, Avatar, Dropdown} from 'gestalt';
 import './NavBar.scss';
 import {NavLink} from 'react-router-dom';
 import {FaBell} from 'react-icons/fa';
 import {AiFillMessage} from 'react-icons/ai';
+import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
-export default function NavBar() {
+function NavBar(props) {
     const [value, setValue] = React.useState('');
-    const userId = localStorage.getItem('id');
+    const userId= localStorage.getItem('id');
+    const [user, setUser]= useState({})
+    const [open, setOpen] = React.useState(false);
+    const anchorRef = React.useRef(null);
 
+    
+    const getUser=async()=>{
+        try{
+            const response = await axios(`http://localhost:3001/users/${userId}`, {withCredentials: true});
+            const fetchedUser = await response.data;
+              if (fetchedUser) {
+                setUser(fetchedUser)
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+    const logout=async()=>{
+      localStorage.clear();
+      props.history.push("/");
+    }
+    useEffect(() => {
+     getUser()
+    }, [])
+  
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
          <NavLink className="navbar-link" to="/feed"><Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand></NavLink>
@@ -31,11 +56,30 @@ export default function NavBar() {
           <Nav>
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>
             <Nav.Link href="#memes"><AiFillMessage className="NavBarIcon mx-1"/></Nav.Link>
-            <Nav.Link> <Box paddingX={2}>
-            <NavLink  to={`/profile/${userId}`}><Avatar size="xs" src="https://i.ibb.co/ZfCZrY8/keerthi.jpg" name="Keerthi"/></NavLink>
+            <Nav.Link   onClick={ ()=>setOpen(!open) }
+            ref={anchorRef}
+            accessibilityExpanded={open}> <Box paddingX={2} >
+            <Avatar size="xs" src={user?.image ?? 'http://placehold.it/50x50'} name="Keerthi" 
+            />
+              {open && (
+        <Dropdown id="sections-dropdown-example" anchor={anchorRef.current} onDismiss={() => {setOpen(false)}}>
+        <Dropdown.Section>
+          <Dropdown.Item
+            option={{ value: "Pin", label: "Go to profile" }}
+            handleSelect={()=>props.history.push(`/profile/${userId}`)}
+          />
+           <Dropdown.Item
+            option={{ value: "Pin", label: "Logout" }}
+            handleSelect={()=>logout()}
+
+          />
+        </Dropdown.Section>
+      </Dropdown>
+      )}
             </Box></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     )
 }
+export default withRouter(NavBar);

@@ -8,6 +8,7 @@ function ProfileInfo(props) {
     const [selected, setSelected] = useState(false);
     const currentId = props.match.params.id
     const localId= localStorage.getItem('id');
+    
     return (
        <Container className="d-flex justify-content-center w-100 mt-4 ProfileInfoContainer">
            <Row className="d-flex justify-content-center align-items-center w-100 text-center ProfileInfoRow">
