@@ -50,9 +50,10 @@
        }
        .commentsDiv{
            overflow-y: scroll;
-           width: 100%;
+           width: 83%;
            margin-top: 20px;
-           position: relative;
+           position: absolute;
+           bottom: 30px;
            max-height: 100px;
            &::-webkit-scrollbar {
             display: none;

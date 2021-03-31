@@ -39,7 +39,7 @@ class App extends Component {
           {this.props.location.pathname !== "/" && <NavBar/>}
           <Route exact path="/feed" component={Home} />
           <Route exact path="/details/:id" component={Details} />
-          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/addPin" component={AddPinComponent} />
           <Route exact path="/modify" component={ModifyProfile} />
     </div>

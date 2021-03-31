@@ -6,7 +6,7 @@ import {BsThreeDots} from 'react-icons/bs';
 import {FiUpload} from 'react-icons/fi';
 import axios from 'axios';
 import { connect } from "react-redux";
-
+import {Link} from 'react-router-dom';
 
 const mapStateToProps = (state) => state;
 
@@ -17,16 +17,18 @@ function Pin(props) {
     const [post, setPost]= useState({})
     const fetchPost=async()=>{
         const response = await axios(`http://localhost:3001/posts/${props.id}`, {withCredentials: true});
-        const infos = await response.data;
+        let infos = await response.data;
           if (infos) {
+            infos = {...infos, comments: infos.comments.reverse()}
             setPost(infos)
           }
         }
         const publish =async(e, postId)=>{
             e.preventDefault();
+            let userId = localStorage.getItem('id');
             let newComment={
                 text: comment,
-                user: props.user.data._id
+                user: userId
             }
             try{
                 const res = await axios(`http://localhost:3001/posts/${postId}/comments`, {
@@ -40,6 +42,7 @@ function Pin(props) {
                 })
                 if(res.status===201){
                     fetchPost()
+                    setComment('')
                 }
                 }catch(e){
                 console.log(e);
@@ -74,7 +77,7 @@ function Pin(props) {
                         size="md"
                         src={post?.user?.image}
                         name="Keerthi"/>
-                        <span className="ml-2 font-weight-bold">{post?.user?.username}</span>
+                        <Link to={`/profile/${post?.user?._id}`} className="text-black"><span className="ml-2 font-weight-bold">{post?.user?.username}</span></Link>
                             </div>
                             <Button
                             onClick={() => setSelected(!selected)}
@@ -93,7 +96,7 @@ function Pin(props) {
                      <div className="commentsDiv">
                    {post.comments?.map((e)=>{
                        return(
-                        <div className="d-flex justify-content-start align-items-center px-3 singleCommentDiv">
+                        <div className="d-flex justify-content-start align-items-center px-3 singleCommentDiv animate__animated animate__fadeIn">
                      <Avatar
                         size="sm"
                         src={e.user.image}
@@ -103,9 +106,8 @@ function Pin(props) {
                          <span className="text-left">{e.text}</span></div>
                         </div>
                        )})}
-                        </div>
-                        
-                 </Row>
+                        </div>         
+                    </Row>
                     </Col>
                 </Row>
             </Container>

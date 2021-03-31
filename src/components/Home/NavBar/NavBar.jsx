@@ -9,6 +9,7 @@ import {AiFillMessage} from 'react-icons/ai';
 
 export default function NavBar() {
     const [value, setValue] = React.useState('');
+    const userId = localStorage.getItem('id');
 
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
@@ -16,7 +17,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <NavLink activeClassName="selected"  className="navbar-link" to="/feed">Home</NavLink>
         <NavLink activeClassName="selected" className="navbar-link mx-1" to="/details">Today</NavLink>
-        <NavLink activeClassName="selected"  className="navbar-link"to="/profile">About</NavLink>
+        <NavLink className="navbar-link" to="/">About</NavLink>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
           <SearchField
@@ -31,7 +32,7 @@ export default function NavBar() {
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>
             <Nav.Link href="#memes"><AiFillMessage className="NavBarIcon mx-1"/></Nav.Link>
             <Nav.Link> <Box paddingX={2}>
-            <Avatar size="xs" src="https://i.ibb.co/ZfCZrY8/keerthi.jpg" name="Keerthi"/>
+            <NavLink  to={`/profile/${userId}`}><Avatar size="xs" src="https://i.ibb.co/ZfCZrY8/keerthi.jpg" name="Keerthi"/></NavLink>
             </Box></Nav.Link>
           </Nav>
         </Navbar.Collapse>

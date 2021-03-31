@@ -47,10 +47,11 @@ function AddPinComponent(props) {
     const publish = async (e)=> {
         try{
             e.preventDefault();
+            let userId = localStorage.getItem('id');
             await uploadPictureHandler(e);
             let newPost={
                 ...inputData, 
-                user: props.user.data._id
+                user: userId
             }
             console.log(newPost);
           const res = await axios("http://localhost:3001/posts", {
