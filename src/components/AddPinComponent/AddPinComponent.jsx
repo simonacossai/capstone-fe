@@ -27,16 +27,13 @@ function AddPinComponent(props) {
       const uploadPictureHandler = async (e) => {
         e.preventDefault();
         try {
-          const response = await fetch(`http://localhost:3001/posts/picture`, {
+          const response = await axios(`http://localhost:3001/posts/picture`, {
             method: "POST",
-            body:imageUrl,
+            data:imageUrl,
           });
-          const data = await response.json();
-          console.log(data)
-          console.log(data.path)
 
-          if (data.path) {
-            await setInputData({...inputData, img: data.path});
+          if (response.data.path) {
+            return response.data.path
         }   
         } catch (er) {
           console.log(er);
@@ -48,9 +45,10 @@ function AddPinComponent(props) {
         try{
             e.preventDefault();
             let userId = localStorage.getItem('id');
-            await uploadPictureHandler(e);
+            let image= await uploadPictureHandler(e);
             let newPost={
                 ...inputData, 
+                img: image,
                 user: userId
             }
             console.log(newPost);
