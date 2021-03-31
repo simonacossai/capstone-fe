@@ -37,7 +37,7 @@ function Profile(props) {
     useEffect(() => {
         getPosts();
         getUser();
-    }, [])
+    }, [props.match.params.id])
 
     return (
         <div className="animate__animated animate__fadeIn">
