@@ -1,23 +1,106 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import './ModifyProfile.scss';
 import {Container, Row, Col} from 'react-bootstrap';
-import {Avatar, Button, Box, TextField, SelectList} from 'gestalt';
+import {Avatar, Button, Box, TextField} from 'gestalt';
+import axios from 'axios';
 
 export default function ModifyProfile() {
+  const [userInfo, setUserInfo] = useState({})
+  const [imageUrl, setImageUrl]=useState('');
+  const [inputData, setInputData] = useState({
+    name:"",
+    surname:"",
+    username:"",
+    email: "",
+    image:"",
+  });
+
+  let id = localStorage.getItem('id');
+  const fetchUser = async ()=> {
+    try{
+      const res = await axios(`http://localhost:3001/users/${id}`, {
+       withCredentials: true 
+      })
+      setUserInfo(res.data)
+      setInputData({
+        name: res.data.name,
+        surname: res.data.surname,
+        username: res.data.username,
+        email: res.data.email,
+        image: res.data.image
+      })
+      }catch(e){
+      console.log(e);
+      alert(e);
+    }
+    }
+    const inputDataHandler = (event) => {
+      setInputData({ ...inputData, [event.event.target.name]: event.event.target.value });
+    };
+
+    const HandleFile = (e) => {
+      const formData = new FormData();
+      formData.append("profilePic", e.target.files[0]);
+      setImageUrl(formData);
+  };
+
+
+  const uploadPictureHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios(`http://localhost:3001/users/picture`, {
+        method: "POST",
+        data: imageUrl,
+      });
+      if (response.data.path) {
+       return response.data.path
+      }   
+    } catch (er) {
+      console.log(er);
+    }
+  };
+
+
+const publish = async (e)=> {
+  e.preventDefault();
+    try{
+        let userId = localStorage.getItem('id');
+       let newImage= await uploadPictureHandler(e);
+          const res = await axios(`http://localhost:3001/users/${userId}`, {
+            method: 'PUT',
+            data: {
+              ...inputData, 
+              image: newImage,
+              user: userId
+            }, withCredentials: true 
+          })
+          fetchUser()
+        }catch(e){
+      console.log(e);
+      alert(e);
+    }       
+}
+
+
+  useEffect(() => {
+  fetchUser()
+  }, [])
     return (
        <Container className="ModifyProfile mt-5">
            <Row className="mt-5 pt-5">
                 <Col md={6} className="d-flex justify-content-center LeftColModifyProfile">
                     <h2>Edit your profile</h2>
                     <p>People who'll visit your profile will see these information</p>
+
                     <div className="d-flex justify-content-center align-items-center" style={{flexDirection: "column"}}>
-                        <Avatar size="xl" src="https://i.ibb.co/ZfCZrY8/keerthi.jpg" name="Keerthi"/>
-                        <div className="mt-3" >
-                        <Button size="md" text="Change profile pic" color="red" inline wrap/>
+                        <Avatar size="xl" src={inputData?.image} name="Keerthi"/>
+                        <div className="mt-3 addImageDiv">
+                        <input type="file" onChange={HandleFile} accept="image/*"/><Button size="md" text="Change profile pic" color="red" id="addImageButton" inline wrap/>
                         </div>
                     </div>
                 </Col>
                 <Col md={6} className="d-flex justify-content-center align-items-center">
+                <form onSubmit={publish} className="w-100">
                 <Box display="flex"
                 marginEnd={-3}
                 marginBottom={-3}
@@ -27,10 +110,12 @@ export default function ModifyProfile() {
                 maxWidth={800}>
                 <Box flex="grow" paddingX={3} paddingY={3}>
                 <TextField
-                label="TextField 1"
+                label="Username"
                 id="textfield1"
-                onChange={() => {}}
-                placeholder="Placeholder"/>
+                name="username"
+                value={inputData?.username}
+                onChange={(event) => inputDataHandler(event)}
+                placeholder="Name"/>
                 </Box>
 
   <Box flex="grow" paddingX={3} paddingY={3}>
@@ -41,20 +126,24 @@ export default function ModifyProfile() {
       marginEnd={-3}
       marginBottom={-3}
       marginTop={-3}
-    >
+      >
       <Box flex="grow" paddingX={3} paddingY={3}>
         <TextField
-          label="TextField 2"
+          label="Name"
+          name="name"
+          value={inputData?.name}
           id="textfield2"
-          onChange={() => {}}
-          placeholder="Placeholder"
+          onChange={(event) => inputDataHandler(event)}
+          placeholder="Name"
         />
       </Box>
       <Box flex="grow" paddingX={3} paddingY={3}>
         <TextField
-          label="TextField 3"
+          label="Surname"
+          name="surname"
+          value={inputData?.surname}
           id="textfield3"
-          onChange={() => {}}
+          onChange={(event) => inputDataHandler(event)}
           placeholder="Placeholder"
         />
       </Box>
@@ -62,9 +151,11 @@ export default function ModifyProfile() {
   </Box>
     <Box flex="grow" paddingX={3} paddingY={3}>
                 <TextField
-                label="TextField 1"
-                id="textfield1"
-                onChange={() => {}}
+                label="Email"
+                id="email"
+                name="email"
+                value={inputData?.email}
+                onChange={(event) => inputDataHandler(event)}
                 placeholder="Placeholder"/>
                 </Box>
 
@@ -87,6 +178,7 @@ export default function ModifyProfile() {
     </Box>
   </Box>
 </Box>
+      </form>
                 </Col>
            </Row>
        </Container>

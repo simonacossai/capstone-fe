@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './ProfileInfo.scss';
 import {Container, Row} from 'react-bootstrap';
 import {Box, Avatar, Button} from 'gestalt';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 function ProfileInfo(props) {
     const [selected, setSelected] = useState(false);
@@ -12,7 +12,7 @@ function ProfileInfo(props) {
        <Container className="d-flex justify-content-center w-100 mt-4 ProfileInfoContainer">
            <Row className="d-flex justify-content-center align-items-center w-100 text-center ProfileInfoRow">
            <Box column={2} >
-                <Avatar name="Keerthi" src="https://i.ibb.co/ZfCZrY8/keerthi.jpg" />
+                <Avatar name="Keerthi" src={props.user?.image} />
            </Box>
                 <h2 className="font-weight-bold text-black p-0">{props.user?.name ?? 'Lorem'} {props.user?.surname ?? 'Ipsum'}</h2>
                 <div className="d-flex text-secondary p-0">{'@'+props.user?.username + ' '} · {props.user?.description ?? 'Welcome to my profile!'} </div>
@@ -33,7 +33,9 @@ function ProfileInfo(props) {
                     </>
                     : 
                     <div className="mr-1">
-                    <Button color="grey" text="Modify Profile" inline size="md" />
+                    <Link to="/modify">
+                        <Button color="grey" text="Modify Profile" inline size="md" />
+                    </Link>
                     </div>
                     }
                 </div>

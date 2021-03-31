@@ -32,6 +32,8 @@ class App extends Component {
   render(){
     if(this.props.location.pathname==="/"){
       document.body.style.overflow="hidden";
+    }else{
+      document.body.style.overflowY="scroll";
     }
     return (
       <div className="App">
