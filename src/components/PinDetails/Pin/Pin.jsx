@@ -79,11 +79,6 @@ function Pin(props) {
                         name="Keerthi"/>
                         <Link to={`/profile/${post?.user?._id}`} className="text-black"><span className="ml-2 font-weight-bold">{post?.user?.username}</span></Link>
                             </div>
-                            <Button
-                            onClick={() => setSelected(!selected)}
-                            inline
-                            selected={selected}
-                            text={selected ? "Unfollow" : "Follow"}        />
                         </Row>
                  <Row className="w-100 mt-3">
                     <form  onSubmit={(e)=>publish(e, post._id)} className="w-100">
