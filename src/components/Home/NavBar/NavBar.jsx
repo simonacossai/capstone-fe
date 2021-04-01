@@ -66,19 +66,20 @@ function NavBar(props) {
             <Avatar size="xs" src={user?.image ?? 'http://placehold.it/50x50'} name="Keerthi" 
             />
               {open && (
+                <div className="animate__animated animate__fadeIn">
         <Dropdown id="sections-dropdown-example" anchor={anchorRef.current} onDismiss={() => {setOpen(false)}}>
         <Dropdown.Section>
           <Dropdown.Item
             option={{ value: "Pin", label: "Go to profile" }}
             handleSelect={()=>props.history.push(`/profile/${userId}`)}
-          />
+            />
            <Dropdown.Item
             option={{ value: "Pin", label: "Logout" }}
             handleSelect={()=>logout()}
-
-          />
+            />
         </Dropdown.Section>
       </Dropdown>
+            </div>
       )}
             </Box></Nav.Link>
           </Nav>

@@ -41,7 +41,7 @@ function Profile(props) {
 
     return (
         <div className="animate__animated animate__fadeIn">
-            <ProfileInfo user={user}/>
+            <ProfileInfo currentUser={user} getUser={getUser}/>
             <ProfilePosts posts={posts}/>
             <AddPin/>
         </div>

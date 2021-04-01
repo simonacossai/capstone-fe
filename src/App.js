@@ -14,41 +14,63 @@ import Details from './components/PinDetails/Details/Details';
 import Profile from './components/Profile/Profile';
 import AddPinComponent from './components/AddPinComponent/AddPinComponent';
 import ModifyProfile from './components/ModifyProfile/ModifyProfile';
-class App extends Component {
+import React, {useEffect} from 'react'
+import { connect } from "react-redux";
+import axios from 'axios';
 
-  componentDidMount=()=> {
-   messaging.requestPermission()
-     .then(async function() {
-       const token = await messaging.getToken();
-       console.log(token);
-     })
-     .catch(function(err) {
-       console.log("Unable to get permission to notify.", err);
-     });
- navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
- }
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch({type: "LOGIN", payload: user}),
+});
 
+function App(props) {
+  let userId = localStorage.getItem('id');
 
-  render(){
-    if(this.props.location.pathname==="/"){
-      document.body.style.overflow="hidden";
-    }else{
-      document.body.style.overflowY="unset";
+ const connect=()=> {
+    messaging.requestPermission()
+      .then(async function() {
+        const token = await messaging.getToken();
+        console.log(token);
+      })
+      .catch(function(err) {
+        console.log("Unable to get permission to notify.", err);
+      });
+  navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
+  }
+
+  const getUser=async()=>{
+    try{
+        const response = await axios(`http://localhost:3001/users/${userId}`, {withCredentials: true});
+        const fetchedUser = await response.data;
+          if (fetchedUser) {
+            props.setUser(fetchedUser)
+        }
+    }catch(error){
+        console.log(error)
     }
-    return (
-      <div className="App">
+}
+  useEffect(() => {
+  connect()
+  if(userId){
+    getUser()
+  }
+  }, [])
+
+  if(props.location.pathname==="/"){
+    document.body.style.overflow="hidden";
+  }else{
+    document.body.style.overflowY="unset";
+  }
+  return (
+    <div className="App">
           <Route exact path="/" component={RegistrationPage} />
-          {this.props.location.pathname !== "/" && <NavBar/>}
+          {props.location.pathname !== "/" && <NavBar/>}
           <Route exact path="/feed" component={Home} />
           <Route exact path="/details/:id" component={Details} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/addPin" component={AddPinComponent} />
           <Route exact path="/modify" component={ModifyProfile} />
     </div>
-  );
+  )
 }
-}
-
-export default withRouter(App);
-
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
