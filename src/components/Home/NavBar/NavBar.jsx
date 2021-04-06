@@ -86,7 +86,7 @@ function NavBar(props) {
             onChange={({value}) => getInfo(value)}
             placeholder="🔍 Search and explore"
             value={value}/>
-         {value && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResultDiv text-left py-3">
+         {value.length>1 && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResultDiv text-left py-3">
            {users.length>0 && <span className="font-weight-bold pl-4">Users:</span>}
            {users?.map((e)=> {
              return(
@@ -105,6 +105,7 @@ function NavBar(props) {
                 </div>
              )
            })}
+           {value.length>=3 && users.length===0 && posts.length===0 && <span className="font-weight-bold pl-4">No results found</span>}
           </div>}
           </Nav>
           <Nav>
