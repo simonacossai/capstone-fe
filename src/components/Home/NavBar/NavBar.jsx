@@ -19,8 +19,9 @@ function NavBar(props) {
     const [user, setUser]= useState({})
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-
-    if(value){
+    const [users, setUsers]=useState([])
+    const [posts, setPosts]= useState([]);
+    if(value.length>0){
       if(document.querySelector('.black')){
         document.querySelector('.black').classList.add('blur')
       }
@@ -49,6 +50,26 @@ function NavBar(props) {
     useEffect(() => {
      getUser()
     }, [props.user.changed])
+
+
+   const getInfo=async(value)=>{
+      setValue(value)
+      if(value.length>=3){
+        try{
+          const userRes = await axios(`http://localhost:3001/users?name=${value}`, {withCredentials: true});
+          const postRes = await axios(`http://localhost:3001/posts?name=${value}`, {withCredentials: true});
+            if (userRes.data && postRes.data) {
+              setUsers(userRes.data)
+              setPosts(postRes.data);
+            }
+      }catch(error){
+          console.log(error)
+      }
+      }else{
+        setUsers([])
+        setPosts([])
+      }
+    }
   
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
@@ -62,11 +83,28 @@ function NavBar(props) {
             accessibilityLabel="Demo Search Field"
             id="searchField"
             className="searchField"
-            onChange={({value}) => setValue(value)}
+            onChange={({value}) => getInfo(value)}
             placeholder="🔍 Search and explore"
             value={value}/>
-         {value && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResult">
-           <span>Blablabla</span>
+         {value && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResultDiv text-left py-3">
+           {users.length>0 && <span className="font-weight-bold pl-4">Users:</span>}
+           {users?.map((e)=> {
+             return(
+               <div className="d-flex  align-items-center p-2 singleSearchResult"> 
+               <Avatar size="sm" src={e?.image ?? 'http://placehold.it/50x50'} />
+                <p className="font-weight-bold m-0 ml-2 p-0">{e.username}</p>
+                </div>
+             )
+           })}
+            {posts.length>0 && <span className="font-weight-bold pl-4">Posts:</span>}
+           {posts?.map((e)=> {
+             return(
+               <div className="d-flex align-items-center p-2 postSearchResult"> 
+               <img src={e?.img ?? 'http://placehold.it/50x50'}/>
+                <p className="font-weight-normal text-left m-0 p-0 resultDescription">{e.description}</p>
+                </div>
+             )
+           })}
           </div>}
           </Nav>
           <Nav>

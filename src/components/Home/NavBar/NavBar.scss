@@ -23,14 +23,53 @@
         z-index: 200;
         padding:5px 15px;
     }
-    .searchResult{
+    .searchResultDiv{
         width: 480px;
-        height: 300px;
+        max-height: 300px;
+        overflow-y: scroll;
         background-color: white;
         position: absolute;
         z-index:200;
         border-radius: 16px;
         box-shadow: 3px 3px 16px rgba(0,0,0,0.3);
+        .singleSearchResult{
+            border: 0.3px solid rgba(0,0,0,0.1);
+            border-radius: 16px;
+            transition: all .30s ease-in-out;
+            margin: 10px 20px;
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+                transition: all .30s ease-in-out;
+                border-radius: 16px;
+            }
+        }
+        .postSearchResult{
+            transition: all .30s ease-in-out;
+            margin: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            border: 0.3px solid rgba(0,0,0,0.1);
+            border-radius: 16px;
+            img{
+                width:60px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+            .resultDescription{
+                overflow: hidden;
+                width: 300px;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; 
+                -webkit-box-orient: vertical;
+            }
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+                transition: all .30s ease-in-out;
+                border-radius: 16px;
+            }
+        }
     }
     .NavBarIcon{
         font-size: 23px;
@@ -59,3 +98,4 @@
     filter: blur(3px);
     animation: fadeIn; 
 }
+
