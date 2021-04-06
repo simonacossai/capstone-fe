@@ -63,10 +63,11 @@ function NavBar(props) {
             id="searchField"
             className="searchField"
             onChange={({value}) => setValue(value)}
-            placeholder="Search and explore"
-            required pattern="\S+.*"
+            placeholder="🔍 Search and explore"
             value={value}/>
-         {value && <div style={{width: "480px", height: "300px", backgroundColor: "white", position: "absolute", zIndex:"200", borderRadius: "16px"}} className="mt-2 animate__animated animate__fadeIn animate__faster"></div>}
+         {value && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResult">
+           <span>Blablabla</span>
+          </div>}
           </Nav>
           <Nav>
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>

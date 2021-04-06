@@ -21,6 +21,16 @@
     #searchField{
         width: 480px!important;
         z-index: 200;
+        padding:5px 15px;
+    }
+    .searchResult{
+        width: 480px;
+        height: 300px;
+        background-color: white;
+        position: absolute;
+        z-index:200;
+        border-radius: 16px;
+        box-shadow: 3px 3px 16px rgba(0,0,0,0.3);
     }
     .NavBarIcon{
         font-size: 23px;
