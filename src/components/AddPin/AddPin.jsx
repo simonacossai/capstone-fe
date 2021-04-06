@@ -12,7 +12,7 @@ export default function AddPin() {
     };
 
       return (
-          <div style={{position: 'absolute', bottom:'60px', right:'50px'}}>
+          <div style={{position: 'fixed', bottom:'60px', right:'60px'}}>
         <Box display="flex" justifyContent="center">
         <IconButton
           accessibilityControls="custom-dropdown-example"

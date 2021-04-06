@@ -20,7 +20,17 @@ function NavBar(props) {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
-    
+    if(value){
+      if(document.querySelector('.black')){
+        document.querySelector('.black').classList.add('blur')
+      }
+      document.body.classList.add('backdrop');
+    }else{
+      document.body.classList.remove('backdrop');
+      if(document.querySelector('.black')){
+        document.querySelector('.black').classList.remove('blur')
+      }
+    }
     const getUser=async()=>{
         try{
             const response = await axios(`http://localhost:3001/users/${userId}`, {withCredentials: true});
@@ -45,17 +55,18 @@ function NavBar(props) {
          <NavLink className="navbar-link" to="/feed"><Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand></NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <NavLink activeClassName="selected"  className="navbar-link" to="/feed">Home</NavLink>
-        <NavLink activeClassName="selected" className="navbar-link mx-1" to="/details">Today</NavLink>
-        <NavLink className="navbar-link" to="/">About</NavLink>
+        <NavLink activeClassName="selected" className="navbar-link mx-1" to="/hi">Today</NavLink>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mx-auto">
+          <Nav className="mx-auto d-block">
           <SearchField
             accessibilityLabel="Demo Search Field"
             id="searchField"
             className="searchField"
             onChange={({value}) => setValue(value)}
             placeholder="Search and explore"
+            required pattern="\S+.*"
             value={value}/>
+         {value && <div style={{width: "480px", height: "300px", backgroundColor: "white", position: "absolute", zIndex:"200", borderRadius: "16px"}} className="mt-2 animate__animated animate__fadeIn animate__faster"></div>}
           </Nav>
           <Nav>
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>

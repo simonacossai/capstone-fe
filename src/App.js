@@ -66,10 +66,12 @@ function App(props) {
           <Route exact path="/" component={RegistrationPage} />
           {props.location.pathname !== "/" && <NavBar/>}
           <Route exact path="/feed" component={Home} />
+          <div className="black animate__animated animate__fadeIn">
           <Route exact path="/details/:id" component={Details} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/addPin" component={AddPinComponent} />
           <Route exact path="/modify" component={ModifyProfile} />
+          </div>
     </div>
   )
 }

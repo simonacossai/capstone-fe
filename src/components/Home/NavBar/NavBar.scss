@@ -1,5 +1,6 @@
 .NavBar{
     background-color: white!important;
+    z-index: 200!important;
     .navbar-link{
         padding: 7px 20px;
         color: black;
@@ -18,9 +19,33 @@
         transition: all .3s ease-in-out;
     }
     #searchField{
-        width: 400px!important;
+        width: 480px!important;
+        z-index: 200;
     }
     .NavBarIcon{
         font-size: 23px;
     }
+}
+
+
+.backdrop{
+    content: '';
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color:rgba(209, 208, 208, 0.2);
+    animation: fadeIn; 
+}
+
+.blur{
+    content: '';
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    filter: blur(3px);
+    animation: fadeIn; 
 }
