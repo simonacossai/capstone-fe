@@ -85,18 +85,18 @@ function NavBar(props) {
             className="searchField"
             onChange={({value}) => getInfo(value)}
             placeholder="🔍 Search and explore"
-            value={value}/>
+            value={value} />
          {value.length>1 && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResultDiv text-left py-3">
            {users.length>0 && <span className="font-weight-bold pl-4">Users:</span>}
            {users?.map((e)=> {
              return(
-               <div className="d-flex  align-items-center p-2 singleSearchResult"> 
+              <div className="d-flex  align-items-center p-2 singleSearchResult"> 
                <Avatar size="sm" src={e?.image ?? 'http://placehold.it/50x50'} />
-                <p className="font-weight-bold m-0 ml-2 p-0">{e.username}</p>
-                </div>
+               <p className="font-weight-bold m-0 ml-2 p-0">{e.username}</p>
+              </div>
              )
            })}
-            {posts.length>0 && <span className="font-weight-bold pl-4">Posts:</span>}
+          {posts.length>0 && <span className="font-weight-bold pl-4">Posts:</span>}
            {posts?.map((e)=> {
              return(
                <div className="d-flex align-items-center p-2 postSearchResult"> 
@@ -105,32 +105,31 @@ function NavBar(props) {
                 </div>
              )
            })}
-           {value.length>=3 && users.length===0 && posts.length===0 && <span className="font-weight-bold pl-4">No results found</span>}
+           {value.length>=3 && users.length===0 && posts.length===0 && 
+           <span className="font-weight-bold pl-4">No results found</span>}
           </div>}
           </Nav>
           <Nav>
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>
             <Nav.Link href="#memes"><AiFillMessage className="NavBarIcon mx-1"/></Nav.Link>
-            <Nav.Link   onClick={ ()=>setOpen(!open) }
+            <Nav.Link   onClick={()=>setOpen(!open)}
             ref={anchorRef}
             accessibilityExpanded={open}> <Box paddingX={2} >
             <Avatar size="xs" src={user?.image ?? 'http://placehold.it/50x50'} name="Keerthi" 
             />
-              {open && (
-                <div className="animate__animated animate__fadeIn">
+        {open && (
+        <div className="animate__animated animate__fadeIn">
         <Dropdown id="sections-dropdown-example" anchor={anchorRef.current} onDismiss={() => {setOpen(false)}}>
         <Dropdown.Section>
           <Dropdown.Item
             option={{ value: "Pin", label: "Go to profile" }}
-            handleSelect={()=>props.history.push(`/profile/${userId}`)}
-            />
+            handleSelect={()=>props.history.push(`/profile/${userId}`)}/>
            <Dropdown.Item
             option={{ value: "Pin", label: "Logout" }}
-            handleSelect={()=>logout()}
-            />
+            handleSelect={()=>logout()}/>
         </Dropdown.Section>
       </Dropdown>
-            </div>
+        </div>
       )}
             </Box></Nav.Link>
           </Nav>
