@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import logo from '../../../assets/logoP.png';
 import {SearchField, Box, Avatar, Dropdown} from 'gestalt';
@@ -7,18 +7,18 @@ import {NavLink} from 'react-router-dom';
 import {FaBell} from 'react-icons/fa';
 import {AiFillMessage} from 'react-icons/ai';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import { connect } from "react-redux";
 
 
 const mapStateToProps = (state) => state;
 
 function NavBar(props) {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
     const userId= localStorage.getItem('id');
     const [user, setUser]= useState({})
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
     const [users, setUsers]=useState([])
     const [posts, setPosts]= useState([]);
     if(value.length>0){
@@ -42,6 +42,11 @@ function NavBar(props) {
         }catch(error){
             console.log(error)
         }
+    }
+    const empty=async()=>{
+     setValue('');
+     setUsers([])
+     setPosts([])
     }
     const logout=async()=>{
       localStorage.clear();
@@ -90,19 +95,23 @@ function NavBar(props) {
            {users.length>0 && <span className="font-weight-bold pl-4">Users:</span>}
            {users?.map((e)=> {
              return(
+               <Link to={`/profile/${e._id}`} onClick={()=>empty()}> 
               <div className="d-flex  align-items-center p-2 singleSearchResult"> 
                <Avatar size="sm" src={e?.image ?? 'http://placehold.it/50x50'} />
                <p className="font-weight-bold m-0 ml-2 p-0">{e.username}</p>
               </div>
+               </Link>
              )
            })}
           {posts.length>0 && <span className="font-weight-bold pl-4">Posts:</span>}
            {posts?.map((e)=> {
              return(
+              <Link to={`/details/${e._id}`} onClick={()=>empty()}> 
                <div className="d-flex align-items-center p-2 postSearchResult"> 
                <img src={e?.img ?? 'http://placehold.it/50x50'}/>
                 <p className="font-weight-normal text-left m-0 p-0 resultDescription">{e.description}</p>
                 </div>
+              </Link>
              )
            })}
            {value.length>=3 && users.length===0 && posts.length===0 && 

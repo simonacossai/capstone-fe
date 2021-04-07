@@ -52,7 +52,7 @@ function Pin(props) {
     
     useEffect(() => {
         fetchPost()
-    }, [])
+    }, [props.id])
     return (
             <Container fluid className="detailCard p-0 m-0 mt-4 mx-5 animate__animated animate__fadeIn">
                 <Row>
