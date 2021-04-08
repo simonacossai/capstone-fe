@@ -202,11 +202,42 @@ export const follow=async(props, currentId, localId)=>{
 }
 
 
+export const updateUserInfo = async (e, inputData, props, imageUrl)=> {
+  e.preventDefault();
+    try{
+      let userId = localStorage.getItem('id');
+       let newImage= await uploadPictureHandler(e, props, imageUrl);
+          const res = await axios(`http://localhost:3001/users/${userId}`, {
+            method: 'PUT',
+            data: {
+              ...inputData, 
+              image: newImage,
+              user: userId
+            }, withCredentials: true 
+          })
+          getCurrentUser(userId)
+          props.setUser(res.data)
+        }catch(e){
+      console.log(e);
+      alert(e);
+    }       
+}
 
-
-
-
-
+export  const uploadPictureHandler = async (e, props, imageUrl) => {
+  e.preventDefault();
+  try {
+    const response = await axios(`http://localhost:3001/users/picture`, {
+      method: "POST",
+      data: imageUrl,
+    });
+    if (response.data.path) {
+      props.setChanged()
+     return response.data.path
+    }   
+  } catch (er) {
+    console.log(er);
+  }
+};
 
 
 

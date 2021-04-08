@@ -4,7 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import {Avatar, Button, Box, TextField} from 'gestalt';
 import axios from 'axios';
 import { connect } from "react-redux";
-
+import {updateUserInfo} from '../../api/request';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
@@ -13,7 +13,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function ModifyProfile(props) {
-  const [userInfo, setUserInfo] = useState({})
   const [imageUrl, setImageUrl]=useState('');
   const [inputData, setInputData] = useState({
     name:"",
@@ -23,25 +22,7 @@ function ModifyProfile(props) {
     image:"",
   });
 
-  let id = localStorage.getItem('id');
-  const fetchUser = async ()=> {
-    try{
-      const res = await axios(`http://localhost:3001/users/${id}`, {
-       withCredentials: true 
-      })
-      setUserInfo(res.data)
-      setInputData({
-        name: res.data.name,
-        surname: res.data.surname,
-        username: res.data.username,
-        email: res.data.email,
-        image: res.data.image
-      })
-      }catch(e){
-      console.log(e);
-      alert(e);
-    }
-    }
+  
     const inputDataHandler = (event) => {
       setInputData({ ...inputData, [event.event.target.name]: event.event.target.value });
     };
@@ -53,48 +34,15 @@ function ModifyProfile(props) {
   };
 
 
-  const uploadPictureHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios(`http://localhost:3001/users/picture`, {
-        method: "POST",
-        data: imageUrl,
-      });
-      if (response.data.path) {
-        props.setChanged()
-       return response.data.path
-      }   
-    } catch (er) {
-      console.log(er);
-    }
-  };
-
-
-const publish = async (e)=> {
-  e.preventDefault();
-    try{
-        let userId = localStorage.getItem('id');
-       let newImage= await uploadPictureHandler(e);
-          const res = await axios(`http://localhost:3001/users/${userId}`, {
-            method: 'PUT',
-            data: {
-              ...inputData, 
-              image: newImage,
-              user: userId
-            }, withCredentials: true 
-          })
-          fetchUser()
-          props.setUser(res.data)
-        }catch(e){
-      console.log(e);
-      alert(e);
-    }       
-}
-
-
   useEffect(() => {
-  fetchUser()
-  }, [])
+        setInputData({
+          name: props.user.data.name,
+          surname: props.user.data.surname,
+          username:props.user.data.username,
+          email: props.user.data.email,
+          image: props.user.data.image
+        })
+  }, [props.user.data])
     return (
        <Container className="ModifyProfile mt-5 animate__animated animate__fadeIn">
            <Row className="mt-5 pt-5 animate__animated animate__fadeIn">
@@ -110,7 +58,7 @@ const publish = async (e)=> {
                     </div>
                 </Col>
                 <Col md={6} className="d-flex justify-content-center align-items-center">
-                <form onSubmit={publish} className="w-100">
+                <form onSubmit={(e)=>updateUserInfo(e, inputData, props, imageUrl)} className="w-100">
                 <Box display="flex"
                 marginEnd={-3}
                 marginBottom={-3}
