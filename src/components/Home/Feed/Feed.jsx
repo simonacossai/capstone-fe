@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React,  {useEffect} from 'react';
 import './Feed.scss';
 import {Container, Row} from 'react-bootstrap';
 import {Avatar} from 'gestalt';
 import { connect } from "react-redux";
-import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
 import {getPosts} from '../../../api/request';
 
@@ -16,7 +15,6 @@ function Feed(props) {
       useEffect(() => {
         getPosts(props);
     }, [])
-
     
     return (
        <Container className="m-0 p-0 Feed" fluid >

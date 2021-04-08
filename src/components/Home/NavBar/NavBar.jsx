@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import logo from '../../../assets/logoP.png';
 import {SearchField, Box, Avatar, Dropdown} from 'gestalt';
@@ -6,7 +6,6 @@ import './NavBar.scss';
 import {NavLink} from 'react-router-dom';
 import {FaBell} from 'react-icons/fa';
 import {AiFillMessage} from 'react-icons/ai';
-import axios from 'axios';
 import {withRouter, Link} from 'react-router-dom';
 import { connect } from "react-redux";
 import {getInfo} from '../../../api/request'
@@ -14,6 +13,7 @@ import {getInfo} from '../../../api/request'
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch({type: "LOGIN", payload: user}),
+  logout: ()=> dispatch({type: "LOGOUT"})
 });
 
 function NavBar(props) {
@@ -44,6 +44,7 @@ function NavBar(props) {
     }
     const logout=async()=>{
       localStorage.clear();
+      props.logout();
       props.history.push("/");
     }
 
