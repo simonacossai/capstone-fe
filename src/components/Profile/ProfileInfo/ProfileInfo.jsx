@@ -30,11 +30,11 @@ function ProfileInfo(props) {
            <Box column={2} >
                 <Avatar name="Keerthi" src={props.currentUser?.image} />
            </Box>
-                <h2 className="font-weight-bold text-black p-0">{props.currentUser?.name ?? 'Lorem'} {props.currentUser?.surname ?? 'Ipsum'}</h2>
+                <h2 className="font-weight-bold text-dark p-0">{props.currentUser?.name ?? 'Lorem'} {props.currentUser?.surname ?? 'Ipsum'}</h2>
                 <div className="d-flex text-secondary p-0">{'@'+props.currentUser?.username + ' '} · {props.currentUser?.description ?? 'Welcome to my profile!'} </div>
                 <div className="d-flex p-0">
-                    <p className="p-0 m-0 text-black font-weight-bold mr-1">{props.currentUser?.followers?.length} follower </p> ·
-                    <p className="p-0 m-0 text-black font-weight-bold ml-1">{props.currentUser?.following?.length} following </p> 
+                    <p className="p-0 m-0 text-dark font-weight-bold mr-1">{props.currentUser?.followers?.length} follower </p> ·
+                    <p className="p-0 m-0 text-dark font-weight-bold ml-1">{props.currentUser?.following?.length} following </p> 
                 </div>
                 <div className="d-flex p-0 mt-2 w-100 justify-content-center">
                     {currentId!== localId ?
@@ -51,7 +51,7 @@ function ProfileInfo(props) {
                     </>
                     : 
                     <div className="mr-1">
-                    <Link to="/modify">
+                    <Link to="/modify" className="text-dark text-decoration-none">
                         <Button color="grey" text="Modify Profile" inline size="md" />
                     </Link>
                     </div>

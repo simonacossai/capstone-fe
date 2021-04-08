@@ -95,10 +95,10 @@ function NavBar(props) {
            {users.length>0 && <span className="font-weight-bold pl-4">Users:</span>}
            {users?.map((e)=> {
              return(
-               <Link to={`/profile/${e._id}`} onClick={()=>empty()}> 
+               <Link to={`/profile/${e._id}`} onClick={()=>empty()} className="text-dark text-decoration-none"> 
               <div className="d-flex  align-items-center p-2 singleSearchResult"> 
                <Avatar size="sm" src={e?.image ?? 'http://placehold.it/50x50'} />
-               <p className="font-weight-bold m-0 ml-2 p-0">{e.username}</p>
+               <p className="font-weight-bold m-0 ml-2 p-0 text-dark">{e.username}</p>
               </div>
                </Link>
              )
@@ -106,7 +106,7 @@ function NavBar(props) {
           {posts.length>0 && <span className="font-weight-bold pl-4">Posts:</span>}
            {posts?.map((e)=> {
              return(
-              <Link to={`/details/${e._id}`} onClick={()=>empty()}> 
+              <Link to={`/details/${e._id}`} onClick={()=>empty()} className="text-dark text-decoration-none"> 
                <div className="d-flex align-items-center p-2 postSearchResult"> 
                <img src={e?.img ?? 'http://placehold.it/50x50'}/>
                 <p className="font-weight-normal text-left m-0 p-0 resultDescription">{e.description}</p>

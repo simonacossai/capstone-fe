@@ -77,7 +77,7 @@ function Pin(props) {
                         size="md"
                         src={post?.user?.image}
                         name="Keerthi"/>
-                        <Link to={`/profile/${post?.user?._id}`} className="text-black"><span className="ml-2 font-weight-bold">{post?.user?.username}</span></Link>
+                        <Link to={`/profile/${post?.user?._id}`} className="text-dark text-decoration-none"><span className="ml-2 font-weight-bold text-dark text-decoration-none">{post?.user?.username}</span></Link>
                             </div>
                         </Row>
                  <Row className="w-100 mt-3">
@@ -97,7 +97,9 @@ function Pin(props) {
                         src={e.user.image}
                         name="Keerthi"/>
                         <div className="d-flex ml-2">
+                        <Link to={`/profile/${e.user?._id}`} className="text-dark text-decoration-none">
                          <span className="text-left font-weight-bold">{e.user.username}</span>
+                         </Link>
                          <span className="text-left">{e.text}</span></div>
                         </div>
                        )})}

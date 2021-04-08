@@ -35,13 +35,13 @@ function Feed(props) {
            <Row className="d-flex justify-content-center">
                {props.posts.allPosts.map((e)=>{
                    return(
-                <Link to={`/details/${e._id}`}>
+                <Link to={`/details/${e._id}`} className="text-dark text-decoration-none">
                 <div className="postDiv">
                 <button className="postButton">Save</button>
                 <img src={e.img} className="postImage"/>
                 <div className="d-flex text-center align-items-center justify-content-center">
                 <Avatar size="xs" src={e.user.image} name="Keerthi"/>
-                <span className="m-0 p-0 d-flex justify-content-center align-items-center ml-2 text-black">{e.user.username}</span>
+                <span className="m-0 p-0 d-flex justify-content-center align-items-center ml-2 text-dark">{e.user.username}</span>
                 </div>
                 </div>
                 </Link>

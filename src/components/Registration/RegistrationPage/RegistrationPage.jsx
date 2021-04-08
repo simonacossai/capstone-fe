@@ -25,14 +25,14 @@ export default function RegistrationPage() {
                         <img className="animate__animated animate__fadeInUp animate__delay-0.5s" src="https://i.pinimg.com/originals/17/cf/3e/17cf3e9f9bab7684e7036475b0b75107.jpg"/>
                         <img className="animate__animated animate__fadeInUp animate__delay-0.7s" src="https://i.pinimg.com/originals/1c/e1/c4/1ce1c4fa38c5c344295ee790e40d5daf.jpg"/>
                     </div>
-                    <Link to="login" smooth={true} duration={900}>
+                    <Link to="login" smooth={true} duration={900} className="text-dark text-decoration-none">
                     <button className="ArrowButton animate__animated animate__pulse animate__infinite"><MdKeyboardArrowDown/></button>
                     </Link>
                 </Row> 
                 </Container>
         </div>
         <Container  className="LoginContainer" id="login" fluid>
-        <Link to="welcome" smooth={true} duration={900}>
+        <Link to="welcome" smooth={true} duration={900} className="text-dark text-decoration-none">
         <button className="ArrowButtonTop"><MdKeyboardArrowUp/></button>
         </Link>
             <Row className="d-flex justify-content-center align-items-center text-center m-0 LoginRow">

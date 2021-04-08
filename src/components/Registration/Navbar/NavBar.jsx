@@ -20,12 +20,12 @@ export default function NavBar() {
             <p eventKey={2} href="#memes">
               Blog            
             </p>
-            <Link to="login" smooth={true} duration={900}>
+            <Link to="login" smooth={true} duration={900} className="text-dark text-decoration-none">
             <Box paddingX={2}>
             <Button text="Log in" inline color="red"  display="flex" paddingX={3} marginEnd={3}/>
             </Box>
             </Link>
-            <Link to="login" smooth={true} duration={900}>
+            <Link to="login" smooth={true} duration={900} className="text-dark text-decoration-none">
             <Box paddingX={2}>
             <Button text="Sign up" inline color="grey"/>
             </Box>

@@ -41,7 +41,7 @@ export default function AddPin() {
             >
               <Box width="100%">
                 <Text>
-                <Link to="/addPin">
+                <Link to="/addPin" className="text-dark text-decoration-none">
                     Add a pin
                 </Link>
                 </Text>
@@ -59,6 +59,7 @@ export default function AddPin() {
                     hoverStyle="none"
                     href="https://google.com"
                     target="blank"
+                    className="text-dark text-decoration-none"
                   >
                     Another custom link
                   </Link>

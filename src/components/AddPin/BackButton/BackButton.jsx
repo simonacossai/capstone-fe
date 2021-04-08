@@ -5,7 +5,7 @@ import './BackButton.scss'
 function BackButton(props) {
     return (
         <div className="BackButton">
-            <Link to="/feed">
+            <Link to="/feed" className="text-dark text-decoration-none">
             <button><Icon icon="directional-arrow-left" color="darkGray"/></button>
             </Link>
         </div>

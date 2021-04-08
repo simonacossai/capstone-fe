@@ -56,9 +56,15 @@
                 object-fit: cover;
                 border-radius: 5px;
             }
+            p{
+                color: black!important;
+                text-decoration: none;
+            }
             .resultDescription{
                 overflow: hidden;
                 width: 300px;
+                color: black!important;
+                text-decoration: none!important;
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 2; 
