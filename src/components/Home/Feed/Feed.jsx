@@ -5,28 +5,16 @@ import {Avatar} from 'gestalt';
 import { connect } from "react-redux";
 import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
-
+import {getPosts} from '../../../api/request';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
-    fetchPosts: () =>
-    dispatch(async (dispatch) => {
-        try{
-            const response = await axios(`http://localhost:3001/posts/`, {withCredentials: true});
-            const posts = await response.data;
-              if (posts) {
-                dispatch({type: "STORE_ALL_POSTS",payload: posts})
-              }
-        }catch(error){
-            console.log(error)
-        }
-    })
-});
+    fetchPosts: (posts) => dispatch({type: "STORE_ALL_POSTS", payload: posts}),
+  });
 
 function Feed(props) {
-
       useEffect(() => {
-        props.fetchPosts()
+        getPosts(props);
     }, [])
 
     

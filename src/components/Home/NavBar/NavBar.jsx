@@ -9,9 +9,12 @@ import {AiFillMessage} from 'react-icons/ai';
 import axios from 'axios';
 import {withRouter, Link} from 'react-router-dom';
 import { connect } from "react-redux";
-
+import {getInfo} from '../../../api/request'
 
 const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch({type: "LOGIN", payload: user}),
+});
 
 function NavBar(props) {
     const [value, setValue] = useState('');
@@ -21,6 +24,7 @@ function NavBar(props) {
     const anchorRef = useRef(null);
     const [users, setUsers]=useState([])
     const [posts, setPosts]= useState([]);
+   
     if(value.length>0){
       if(document.querySelector('.black')){
         document.querySelector('.black').classList.add('blur')
@@ -32,17 +36,7 @@ function NavBar(props) {
         document.querySelector('.black').classList.remove('blur')
       }
     }
-    const getUser=async()=>{
-        try{
-            const response = await axios(`http://localhost:3001/users/${userId}`, {withCredentials: true});
-            const fetchedUser = await response.data;
-              if (fetchedUser) {
-                setUser(fetchedUser)
-            }
-        }catch(error){
-            console.log(error)
-        }
-    }
+
     const empty=async()=>{
      setValue('');
      setUsers([])
@@ -52,29 +46,7 @@ function NavBar(props) {
       localStorage.clear();
       props.history.push("/");
     }
-    useEffect(() => {
-     getUser()
-    }, [props.user.changed])
 
-
-   const getInfo=async(value)=>{
-      setValue(value)
-      if(value.length>=3){
-        try{
-          const userRes = await axios(`http://localhost:3001/users?name=${value}`, {withCredentials: true});
-          const postRes = await axios(`http://localhost:3001/posts?name=${value}`, {withCredentials: true});
-            if (userRes.data && postRes.data) {
-              setUsers(userRes.data)
-              setPosts(postRes.data);
-            }
-      }catch(error){
-          console.log(error)
-      }
-      }else{
-        setUsers([])
-        setPosts([])
-      }
-    }
   
     return (
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
@@ -88,7 +60,7 @@ function NavBar(props) {
             accessibilityLabel="Demo Search Field"
             id="searchField"
             className="searchField"
-            onChange={({value}) => getInfo(value)}
+            onChange={({value}) => getInfo(value, setValue, setUsers, setPosts)}
             placeholder="🔍 Search and explore"
             value={value} />
          {value.length>1 && <div className="mt-2 animate__animated animate__fadeIn animate__faster searchResultDiv text-left py-3">
@@ -124,7 +96,7 @@ function NavBar(props) {
             <Nav.Link   onClick={()=>setOpen(!open)}
             ref={anchorRef}
             accessibilityExpanded={open}> <Box paddingX={2} >
-            <Avatar size="xs" src={user?.image ?? 'http://placehold.it/50x50'} name="Keerthi" 
+            <Avatar size="xs" src={props.user?.data.image ?? 'http://placehold.it/50x50'} name="Keerthi" 
             />
         {open && (
         <div className="animate__animated animate__fadeIn">
@@ -146,4 +118,4 @@ function NavBar(props) {
       </Navbar>
     )
 }
-export default withRouter(connect(mapStateToProps)(NavBar));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));

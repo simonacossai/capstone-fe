@@ -1,13 +1,15 @@
 import { messaging } from "../init-fcm";
 import axios from 'axios';
 
-export const getCurrentUser=async()=>{
+export const getCurrentUser=async(props)=>{
   let currentUserId = localStorage.getItem('id');
     try{
       if(currentUserId){
         const response = await axios(`http://localhost:3001/users/${currentUserId}`, {withCredentials: true});
         const fetchedUser = await response.data;
-          if (fetchedUser) {return fetchedUser}
+          if (fetchedUser) {
+            props.setUser(fetchedUser)
+          }
       }
     }catch(error){
         console.log(error)
@@ -64,6 +66,34 @@ export const registrationHandler = async (e, inputData, props, setLoading) => {
   }
 };
 
+export const getInfo=async(value, setValue, setUsers, setPosts)=>{
+  setValue(value)
+  if(value.length>=3){
+    try{
+      const userRes = await axios(`http://localhost:3001/users?name=${value}`, {withCredentials: true});
+      const postRes = await axios(`http://localhost:3001/posts?name=${value}`, {withCredentials: true});
+        if (userRes.data && postRes.data) {
+          setUsers(userRes.data)
+          setPosts(postRes.data);
+        }
+  }catch(error){
+      console.log(error)
+  }
+  }else{
+    setUsers([])
+    setPosts([])
+  }
+}
+
+export const getPosts=async(props)=>{
+  try{
+    const response = await axios(`http://localhost:3001/posts/`, {withCredentials: true});
+    const posts = await response.data;
+    props.fetchPosts(posts)
+    }catch(error){
+    console.log(error)
+    }
+}
 
 
 

@@ -26,7 +26,7 @@ function App(props) {
   
   useEffect(async() => {
   connectToFirebase()
-  props.setUser(await getCurrentUser())
+  await getCurrentUser(props)
   }, [])
 
   if(props.location.pathname==="/"){

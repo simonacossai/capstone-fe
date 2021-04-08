@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setChanged: () => dispatch({type: "CHANGED"}),
+  setUser: (user) => dispatch({type: "LOGIN", payload: user}),
 });
 
 function ModifyProfile(props) {
@@ -83,6 +84,7 @@ const publish = async (e)=> {
             }, withCredentials: true 
           })
           fetchUser()
+          props.setUser(res.data)
         }catch(e){
       console.log(e);
       alert(e);
