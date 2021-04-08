@@ -5,9 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import 'animate.css'
 import './App.css';
 import RegistrationPage from './components/Registration/RegistrationPage/RegistrationPage';
-import { messaging } from "./init-fcm";
 import {Route, withRouter} from 'react-router-dom';
-import {Component} from 'react';
 import Home from './components/Home/Home';
 import NavBar from './components/Home/NavBar/NavBar';
 import Details from './components/PinDetails/Details/Details';
@@ -16,44 +14,19 @@ import AddPinComponent from './components/AddPinComponent/AddPinComponent';
 import ModifyProfile from './components/ModifyProfile/ModifyProfile';
 import React, {useEffect} from 'react'
 import { connect } from "react-redux";
-import axios from 'axios';
+import {getCurrentUser, connectToFirebase} from './api/request';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch({type: "LOGIN", payload: user}),
 });
 
+
 function App(props) {
-  let userId = localStorage.getItem('id');
-
- const connect=()=> {
-    messaging.requestPermission()
-      .then(async function() {
-        const token = await messaging.getToken();
-        console.log(token);
-      })
-      .catch(function(err) {
-        console.log("Unable to get permission to notify.", err);
-      });
-  navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
-  }
-
-  const getUser=async()=>{
-    try{
-        const response = await axios(`http://localhost:3001/users/${userId}`, {withCredentials: true});
-        const fetchedUser = await response.data;
-          if (fetchedUser) {
-            props.setUser(fetchedUser)
-        }
-    }catch(error){
-        console.log(error)
-    }
-}
-  useEffect(() => {
-  connect()
-  if(userId){
-    getUser()
-  }
+  
+  useEffect(async() => {
+  connectToFirebase()
+  props.setUser(await getCurrentUser())
   }, [])
 
   if(props.location.pathname==="/"){
@@ -61,6 +34,7 @@ function App(props) {
   }else{
     document.body.style.overflowY="unset";
   }
+
   return (
     <div className="App">
           <Route exact path="/" component={RegistrationPage} />

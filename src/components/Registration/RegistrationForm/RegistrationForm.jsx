@@ -5,7 +5,7 @@ import {RiLockPasswordFill} from 'react-icons/ri';
 import './RegistrationForm.scss'
 import {Button} from 'gestalt';
 import {FcGoogle} from 'react-icons/fc';
-import axios from 'axios';
+import {registrationHandler} from '../../../api/request';
 
 export default function RegistrationForm(props) {
   const [inputData, setInputData] = useState({
@@ -15,38 +15,7 @@ export default function RegistrationForm(props) {
     email: "",
     password: "",
   });
-  const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const registrationHandler = async (e) => {
-    try {
-      e.preventDefault();
-      setLoading(true);
-      const newUser = {
-        email: inputData.email,
-        name: inputData.name,
-        surname: inputData.surname,
-        username: inputData.username,
-        password: inputData.password,
-      };
-      const response = await axios.post("http://localhost:3001/users/register", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: newUser,
-      });
-    
-      console.log(response);
-      props.setLogin(true);
-      if (!response.errors) {
-       console.log("registered")
-      }else{
-        alert(response.errors)
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const inputDataHandler = (event) => {
     setInputData({ ...inputData, [event.target.name]: event.target.value });
@@ -54,7 +23,7 @@ export default function RegistrationForm(props) {
 
     return (
         <div className="RegistrationForm d-flex justify-content-center align-items-center w-100 px-5 pt-5 animate__animated animate__fadeInLeft">
-          <form onSubmit={registrationHandler}>
+          <form onSubmit={(e)=>registrationHandler(e, inputData, props, setLoading)}>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
             <InputGroup.Text id="inputGroup-sizing-default" className="prepend"><FaUserCircle/></InputGroup.Text>
