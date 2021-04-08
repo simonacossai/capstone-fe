@@ -95,12 +95,42 @@ export const getPosts=async(props)=>{
     }
 }
 
+export const fetchPost=async(props, setPost)=>{
+  const response = await axios(`http://localhost:3001/posts/${props.id}`, {withCredentials: true});
+  let infos = await response.data;
+    if (infos) {
+      infos = {...infos, comments: infos.comments.reverse()}
+      setPost(infos)
+    }
+}
 
 
-
-
-
-
+export const publishComment =async(e, postId, props, setPost, comment, setComment)=>{
+  e.preventDefault();
+  let userId = localStorage.getItem('id');
+  let newComment={
+      text: comment,
+      user: userId
+  }
+  try{
+      const res = await axios(`http://localhost:3001/posts/${postId}/comments`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: {
+          newComment
+        }, withCredentials: true // use cookies
+      })
+      if(res.status===201){
+          fetchPost(props, setPost)
+          setComment('')
+      }
+      }catch(e){
+      console.log(e);
+      alert(e);
+    }
+}
 
 
 

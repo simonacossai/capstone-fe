@@ -4,54 +4,19 @@ import {Container, Row, Col} from 'react-bootstrap';
 import {Button, Avatar} from 'gestalt';
 import {BsThreeDots} from 'react-icons/bs';
 import {FiUpload} from 'react-icons/fi';
-import axios from 'axios';
 import { connect } from "react-redux";
 import {Link} from 'react-router-dom';
+import {fetchPost, publishComment} from '../../../api/request';
 
 const mapStateToProps = (state) => state;
 
 function Pin(props) {
     const [selected, setSelected] = useState(false);
     const [comment, setComment] = useState("")
-
     const [post, setPost]= useState({})
-    const fetchPost=async()=>{
-        const response = await axios(`http://localhost:3001/posts/${props.id}`, {withCredentials: true});
-        let infos = await response.data;
-          if (infos) {
-            infos = {...infos, comments: infos.comments.reverse()}
-            setPost(infos)
-          }
-        }
-        const publish =async(e, postId)=>{
-            e.preventDefault();
-            let userId = localStorage.getItem('id');
-            let newComment={
-                text: comment,
-                user: userId
-            }
-            try{
-                const res = await axios(`http://localhost:3001/posts/${postId}/comments`, {
-                  method: 'POST',
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  data: {
-                    newComment
-                  }, withCredentials: true // use cookies
-                })
-                if(res.status===201){
-                    fetchPost()
-                    setComment('')
-                }
-                }catch(e){
-                console.log(e);
-                alert(e);
-              }
-        }
     
     useEffect(() => {
-        fetchPost()
+        fetchPost(props, setPost)
     }, [props.id])
     return (
             <Container fluid className="detailCard p-0 m-0 mt-4 mx-5 animate__animated animate__fadeIn">
@@ -81,7 +46,7 @@ function Pin(props) {
                             </div>
                         </Row>
                  <Row className="w-100 mt-3">
-                    <form  onSubmit={(e)=>publish(e, post._id)} className="w-100">
+                    <form  onSubmit={(e)=>publishComment(e, post._id, props, setPost, comment, setComment)} className="w-100">
                      <textarea placeholder="Write a comment..." className="w-100 commentInput" 
                      value={comment}
                      onChange={e => setComment(e.target.value)}
