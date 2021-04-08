@@ -3,13 +3,11 @@ import './AddPinComponent.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Button} from 'gestalt';
 import {FaFileUpload} from 'react-icons/fa';
-import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
-
+import {publishPost} from '../../api/request';
 
 const mapStateToProps = (state) => state;
-
 function AddPinComponent(props) {
     const [inputData, setInputData] = useState({title:"", description:"", category:"",img: ""});
     const [imageUrl, setImageUrl]=useState('');
@@ -23,56 +21,15 @@ function AddPinComponent(props) {
     const inputDataHandler = (event) => {
         setInputData({ ...inputData, [event.target.name]: event.target.value });
       };
-
-      const uploadPictureHandler = async (e) => {
-        e.preventDefault();
-        try {
-          const response = await axios(`http://localhost:3001/posts/picture`, {
-            method: "POST",
-            data:imageUrl,
-          });
-
-          if (response.data.path) {
-            return response.data.path
-        }   
-        } catch (er) {
-          console.log(er);
-        }
-      };
-    
-
-    const publish = async (e)=> {
-        try{
-            e.preventDefault();
-            let userId = localStorage.getItem('id');
-            let image= await uploadPictureHandler(e);
-            let newPost={
-                ...inputData, 
-                img: image,
-                user: userId
-            }
-            console.log(newPost);
-          const res = await axios("http://localhost:3001/posts", {
-            method: 'POST',
-            data: {
-             newPost
-            }, withCredentials: true 
-          })
-          console.log(res);
-          props.history.push('/feed')
-        }catch(e){
-          console.log(e);
-          alert(e);
-        }       
-    }
+   
 
     return (
         <Container className="d-flex justify-content-center align-items-center w-100 AddPinComponent animate__animated animate__fadeInBottom">
             <Row className="d-flex justify-content-center align-items-center w-100">
                 <Col md={10} className="AddPostDiv mt-4 px-4">
-                        <form onSubmit={publish}>
+                        <form onSubmit={(e)=>publishPost(e, imageUrl, inputData, props)}>
                         <Container fluid>
-                            <Row className="d-flex justify-content-end pt-5 mr-2"><Button text="Publish" color="red" inline type="submit"/></Row>
+                            <Row className="d-flex justify-content-end pt-5 mr-2"><Button text="publish" color="red" inline type="submit"/></Row>
                             <Row className="mt-1">
                                 <Col md={6} className="d-flex justify-content-center align-items-center w-100">
                                     <div className="uploadImage p-3">
@@ -104,7 +61,7 @@ function AddPinComponent(props) {
                                 </Col>
                             </Row>
                         </Container>
-                                </form>
+                      </form>
                 </Col>
             </Row>
         </Container>     

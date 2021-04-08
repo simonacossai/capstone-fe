@@ -133,6 +133,42 @@ export const publishComment =async(e, postId, props, setPost, comment, setCommen
 }
 
 
+export const uploadPostPictureHandler = async (e, imageUrl) => {
+  e.preventDefault();
+  try {
+    const response = await axios(`http://localhost:3001/posts/picture`, {
+      method: "POST",
+      data:imageUrl,
+    });
+    if (response.data.path) {
+      return response.data.path
+  }   
+  } catch (er) {
+    console.log(er);
+  }
+};
+
+export const publishPost = async (e, imageUrl, inputData, props)=> {
+  try{
+      e.preventDefault();
+      let userId = localStorage.getItem('id');
+      let image= await uploadPostPictureHandler(e, imageUrl);
+      let newPost={
+          ...inputData, 
+          img: image,
+          user: userId
+      }
+    const res = await axios("http://localhost:3001/posts", {
+      method: 'POST',
+      data: {
+       newPost
+      }, withCredentials: true 
+    })
+    props.history.push('/feed')
+  }catch(e){
+    alert(e);
+  }       
+}
 
 
 
