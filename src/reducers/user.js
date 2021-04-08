@@ -8,13 +8,14 @@ export default function (state = {}, action) {
       case "LOGOUT":
         return{
           ...state,
-          data: []
+          data: {}
         };
       case "CHANGED": 
         return{
           ...state,
           changed: !state.changed
         }
+  
       default:
         return state;
     }

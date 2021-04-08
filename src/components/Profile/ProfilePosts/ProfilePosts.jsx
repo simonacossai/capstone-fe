@@ -4,7 +4,6 @@ import {Container, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 export default function ProfilePosts({posts}) {
-    
     return (
       <Container className="ProfilePosts mt-5" fluid>
           <Row className="d-flex justify-content-center ">
@@ -19,7 +18,6 @@ export default function ProfilePosts({posts}) {
                 )
             })}
           </Row>
-          
       </Container>
     )
 }

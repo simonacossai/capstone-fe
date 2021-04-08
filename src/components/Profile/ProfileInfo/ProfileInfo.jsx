@@ -4,26 +4,14 @@ import {Container, Row} from 'react-bootstrap';
 import {Box, Avatar, Button} from 'gestalt';
 import {withRouter, Link} from 'react-router-dom';
 import { connect } from "react-redux";
-import axios from 'axios';
-
+import {follow} from '../../../api/request';
 const mapStateToProps = (state) => state;
+
 function ProfileInfo(props) {
     const currentId = props.match.params.id
     const localId= localStorage.getItem('id');
-    const follow=async()=>{
-        try{
-            let res = axios(`http://localhost:3001/users/follow/${currentId}/${localId}`, {
-                method: 'POST',
-                headers: {
-                  "Content-Type": "application/json"
-                }, withCredentials: true 
-            })
-            props.getUser();
-            props.getUser();
-        }catch(e){
-            console.log(e);
-        }
-    }
+    
+
     return (
        <Container className="d-flex justify-content-center w-100 mt-4 ProfileInfoContainer">
            <Row className="d-flex justify-content-center align-items-center w-100 text-center ProfileInfoRow">
@@ -44,9 +32,9 @@ function ProfileInfo(props) {
                     </div>
                     <div className="ml-1">
                
-                    {props.currentUser?.followers?.find((e)=> e === localId) ?  <Button selected={true}
-                    onClick={() => follow()} inline  text="Unfollow" /> :  <Button color="red"
-                    onClick={() => follow()} inline  text="follow"/>}
+                    {props.currentUser?.followers?.find((e)=> e === props.user.data._id) ?  <Button selected={true}
+                    onClick={() => follow(props, currentId, localId)} inline  text="Unfollow" /> :  <Button color="red"
+                    onClick={() => follow(props, currentId, localId)} inline  text="follow"/>}
                     </div>
                     </>
                     : 

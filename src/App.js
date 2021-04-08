@@ -23,10 +23,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 function App(props) {
-  
   useEffect(async() => {
   connectToFirebase()
-  await getCurrentUser(props)
+  let currentUserId = localStorage.getItem('id');
+  let currentUser = await getCurrentUser(currentUserId);
+  props.setUser(currentUser)
   }, [])
 
   if(props.location.pathname==="/"){

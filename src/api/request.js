@@ -1,20 +1,23 @@
 import { messaging } from "../init-fcm";
 import axios from 'axios';
 
-export const getCurrentUser=async(props)=>{
-  let currentUserId = localStorage.getItem('id');
-    try{
-      if(currentUserId){
-        const response = await axios(`http://localhost:3001/users/${currentUserId}`, {withCredentials: true});
-        const fetchedUser = await response.data;
-          if (fetchedUser) {
-            props.setUser(fetchedUser)
-          }
-      }
-    }catch(error){
-        console.log(error)
+
+export const getCurrentUser=async(id, setUser)=>{
+  try{
+    if(id){
+      const response = await axios(`http://localhost:3001/users/${id}`, {withCredentials: true});
+      const fetchedUser = await response.data;
+        if(setUser){
+          setUser(fetchedUser);
+        }else if(fetchedUser) {
+          return fetchedUser
+        }
     }
+  }catch(error){
+      console.log(error)
+  }
 }
+
 
 export const login = async (email, password, props)=> {
   try{
@@ -169,6 +172,37 @@ export const publishPost = async (e, imageUrl, inputData, props)=> {
     alert(e);
   }       
 }
+
+
+export const getUserPosts=async(props, setPosts)=>{
+  try{
+      const response = await axios(`http://localhost:3001/posts/user/${props.match.params.id}`, {withCredentials: true});
+      const fetchedPosts = await response.data;
+        if (fetchedPosts) {
+          setPosts(fetchedPosts)
+      }
+  }catch(error){
+      console.log(error)
+  }
+}
+
+export const follow=async(props, currentId, localId)=>{
+  try{
+      let res = axios(`http://localhost:3001/users/follow/${currentId}/${localId}`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          }, withCredentials: true 
+      })
+      props.getUser(currentId, props.setUser);
+      props.getUser(currentId, props.setUser);
+  }catch(e){
+      console.log(e);
+  }
+}
+
+
+
 
 
 
