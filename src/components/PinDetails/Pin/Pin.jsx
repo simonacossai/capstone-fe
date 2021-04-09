@@ -62,7 +62,7 @@ function Pin(props) {
                         src={e.user.image}
                         name="Keerthi"/>
                         <div className="d-flex ml-2">
-                        <Link to={`/profile/${e.user?._id}`} className="text-dark text-decoration-none">
+                        <Link to={`/profile/${e.user?._id}`} className="text-dark text-decoration-none text-left">
                          <span className="text-left font-weight-bold">{e.user.username}</span>
                          </Link>
                          <span className="text-left">{e.text}</span></div>
