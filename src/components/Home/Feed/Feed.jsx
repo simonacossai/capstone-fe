@@ -8,7 +8,7 @@ import {getPosts} from '../../../api/request';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
-    fetchPosts: (posts) => dispatch({type: "STORE_ALL_POSTS", payload: posts}),
+    fetchPosts: (posts) => dispatch({type: "STORE_ALL_POSTS", payload: posts.reverse()}),
   });
 
 function Feed(props) {

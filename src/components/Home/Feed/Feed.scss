@@ -20,12 +20,13 @@
             opacity: 1;
         }
         .postImage{
-            width:230px!important;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            max-width:230px!important;
             transition: all .30s ease-in-out;
             border-radius: 20px!important;
-            max-height:500px!important;
+            max-height:380px!important;
             min-height: 200px;
-            margin: 10px 10px;
+            margin: 10px 8px;
             &:hover{
                 cursor: zoom-in;
             }
