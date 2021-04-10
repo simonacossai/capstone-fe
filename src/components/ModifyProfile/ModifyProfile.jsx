@@ -128,7 +128,7 @@ function ModifyProfile(props) {
       wrap
     >
       <Box paddingX={1} paddingY={1}>
-        <Button text="Cancel" size="lg" inline />
+        <Button text="Cancel" size="lg" inline onClick={()=>props.history.goBack()}/>
       </Box>
       <Box paddingX={1} paddingY={1}>
         <Button text="Submit" color="red" size="lg" type="submit" />

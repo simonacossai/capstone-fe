@@ -18,12 +18,12 @@ function Feed(props) {
     
     return (
        <Container className="m-0 p-0 Feed" fluid >
-           <Row className="d-flex justify-content-center">
+                 <Row className="d-flex justify-content-center">
                {props.posts.allPosts.map((e)=>{
                    return(
                 <Link to={`/details/${e._id}`} className="text-dark text-decoration-none">
                 <div className="postDiv">
-                <button className="postButton">Save</button>
+                <button className="postButton">see more</button>
                 <img src={e.img} className="postImage"/>
                 <div className="d-flex text-center align-items-center justify-content-center">
                 <Avatar size="xs" src={e.user.image} name="Keerthi"/>
@@ -33,7 +33,7 @@ function Feed(props) {
                 </Link>
                    )
                })}
-           </Row>
+               </Row>
        </Container>
     )
 }

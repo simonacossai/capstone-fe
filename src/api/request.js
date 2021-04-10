@@ -240,6 +240,18 @@ export  const uploadPictureHandler = async (e, props, imageUrl) => {
 };
 
 
+export const savePost=async(props, id, myId)=>{
+  try{
+    const response = await axios(`http://localhost:3001/posts/save/${id}/${myId}`, {
+      method: "POST",  
+      withCredentials: true});
+    getCurrentUser(myId, props.setUser);
+  }catch(error){
+    console.log(error)
+    }
+}
+
+
 
 export const connectToFirebase =()=> {
    messaging.requestPermission()

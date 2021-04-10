@@ -53,9 +53,9 @@ function NavBar(props) {
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
          <NavLink className="navbar-link" to="/feed"><Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand></NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
         <NavLink activeClassName="selected"  className="navbar-link" to="/feed">Home</NavLink>
         <NavLink activeClassName="selected" className="navbar-link mx-1" to="/hi">Today</NavLink>
-        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto d-block">
           <SearchField
             accessibilityLabel="Demo Search Field"

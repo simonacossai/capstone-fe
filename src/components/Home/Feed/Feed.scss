@@ -11,7 +11,7 @@
             color: white;
             border-radius: 20px;
             border: 1px solid #E60023;
-            padding: 8px 14px;
+            padding: 8px;
             transition: all .30s ease-in-out;
             opacity: 0;
         }
@@ -21,15 +21,16 @@
         }
         .postImage{
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-            max-width:230px!important;
+            width:230px!important;
             transition: all .30s ease-in-out;
             border-radius: 20px!important;
             max-height:380px!important;
             min-height: 200px;
-            margin: 10px 8px;
+            margin: 10px 10px;
             &:hover{
                 cursor: zoom-in;
             }
         }
     }
 }
+

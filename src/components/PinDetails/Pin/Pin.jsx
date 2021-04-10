@@ -6,9 +6,12 @@ import {BsThreeDots} from 'react-icons/bs';
 import {FiUpload} from 'react-icons/fi';
 import { connect } from "react-redux";
 import {Link} from 'react-router-dom';
-import {fetchPost, publishComment} from '../../../api/request';
+import {fetchPost, publishComment, savePost} from '../../../api/request';
 
 const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+    setUser: (user) => dispatch({type: "LOGIN", payload: user}),
+});
 
 function Pin(props) {
     const [selected, setSelected] = useState(false);
@@ -30,7 +33,8 @@ function Pin(props) {
                             <BsThreeDots className="icons"/>
                             <FiUpload className="icons"/>
                             </div>
-                        <Button text="Save" inline color="red"/>
+                        {props.user?.data?.savedposts?.find((e)=> e === props.id) ?  <Button text="unsave" selected={true} inline onClick={()=>savePost(props, props.id, props.user.data._id)}/> : 
+                        <Button text="Save" inline color="red" onClick={()=>savePost(props, props.id, props.user.data._id)}/> }
                         </Row>
                         <Row className="d-block justify-content-start text-left">
                             <p className="postTitle">{post.title}</p>
@@ -76,4 +80,4 @@ function Pin(props) {
     )
 }
 
-export default connect(mapStateToProps)(Pin);
+export default connect(mapStateToProps, mapDispatchToProps)(Pin);
