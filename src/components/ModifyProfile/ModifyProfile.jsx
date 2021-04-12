@@ -126,7 +126,7 @@ function ModifyProfile(props) {
       marginBottom={-1}
       display="flex"
       wrap
-    >
+      >
       <Box paddingX={1} paddingY={1}>
         <Button text="Cancel" size="lg" inline onClick={()=>props.history.goBack()}/>
       </Box>

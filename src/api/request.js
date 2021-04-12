@@ -217,6 +217,7 @@ export const updateUserInfo = async (e, inputData, props, imageUrl)=> {
           })
           getCurrentUser(userId)
           props.setUser(res.data)
+          props.history.goBack()
         }catch(e){
       console.log(e);
       alert(e);

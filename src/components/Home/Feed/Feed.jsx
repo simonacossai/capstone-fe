@@ -5,7 +5,6 @@ import {Avatar} from 'gestalt';
 import { connect } from "react-redux";
 import {Link, withRouter} from 'react-router-dom'
 import {getPosts} from '../../../api/request';
-
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
     fetchPosts: (posts) => dispatch({type: "STORE_ALL_POSTS", payload: posts.reverse()}),

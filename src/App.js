@@ -14,11 +14,13 @@ import AddPinComponent from './components/AddPinComponent/AddPinComponent';
 import ModifyProfile from './components/ModifyProfile/ModifyProfile';
 import React, {useEffect} from 'react'
 import { connect } from "react-redux";
+import axios from 'axios';
 import {getCurrentUser, connectToFirebase} from './api/request';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch({type: "LOGIN", payload: user}),
+  setLoading: (value) => dispatch({type: "SET_LOADING", payload: value}),
 });
 
 
@@ -36,6 +38,20 @@ function App(props) {
     document.body.style.overflowY="unset";
   }
 
+  axios.interceptors.request.use(request=>{
+    return request;
+  }, error=>{
+   console.log(error);
+   return Promise.reject(error);
+  });
+
+  axios.interceptors.response.use(response=>{
+   return response;
+  }, error=>{
+   console.log(error);
+   return Promise.reject(error);
+  })
+  
   return (
     <div className="App">
           <Route exact path="/" component={RegistrationPage} />

@@ -20,9 +20,9 @@ function Details(props) {
     }, [])
     return (
        <Container>
-           <Row className="d-flex justify-content-center align-items-center text-center">
+      <Row className="d-flex justify-content-center align-items-center text-center">
                 <BackButton/>
-                <Pin id={props.match.params.id}/> 
+    <Pin id={props.match.params.id}/> 
                 <AddPin/>
                 <RelatedPost posts={related}/>
            </Row>
