@@ -7,6 +7,7 @@ export const getCurrentUser=async(id, setUser)=>{
     if(id){
       const response = await axios(`http://localhost:3001/users/${id}`, {withCredentials: true});
       const fetchedUser = await response.data;
+      console.log(fetchedUser)
         if(setUser){
           setUser(fetchedUser);
         }else if(fetchedUser) {

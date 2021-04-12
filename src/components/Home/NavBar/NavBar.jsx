@@ -9,6 +9,7 @@ import {AiFillMessage} from 'react-icons/ai';
 import {withRouter, Link} from 'react-router-dom';
 import { connect } from "react-redux";
 import {getInfo} from '../../../api/request'
+import ChatSheet from '../../ChatSheet/ChatSheet';
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function NavBar(props) {
+  const [shouldShow, setShouldShow] = React.useState(false);
     const [value, setValue] = useState('');
     const userId= localStorage.getItem('id');
     const [user, setUser]= useState({})
@@ -47,9 +49,11 @@ function NavBar(props) {
       props.logout();
       props.history.push("/");
     }
-
+ 
   
     return (
+    <>
+
         <Navbar collapseOnSelect className="NavBar" expand="lg" bg="light" variant="light">
          <NavLink className="navbar-link" to="/feed"><Navbar.Brand href="#home"><img src={logo} style={{width: "30px"}}/></Navbar.Brand></NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -93,7 +97,7 @@ function NavBar(props) {
           </Nav>
           <Nav>
             <Nav.Link href="#deets"><FaBell className="NavBarIcon mx-1"/></Nav.Link>
-            <Nav.Link href="#memes"><AiFillMessage className="NavBarIcon mx-1"/></Nav.Link>
+            <Nav.Link href="#memes"><AiFillMessage className="NavBarIcon mx-1" onClick={() => setShouldShow(!shouldShow)}/></Nav.Link>
             <Nav.Link   onClick={()=>setOpen(!open)}
             ref={anchorRef}
             accessibilityExpanded={open}> <Box paddingX={2} >
@@ -117,6 +121,8 @@ function NavBar(props) {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <ChatSheet setShouldShow={setShouldShow} shouldShow={shouldShow} />
+      </>
     )
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
