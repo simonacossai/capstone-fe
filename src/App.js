@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import {getCurrentUser, connectToFirebase} from './api/request';
 
+
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch({type: "LOGIN", payload: user}),
@@ -53,6 +54,7 @@ function App(props) {
   })
   
   return (
+   
     <div className="App">
           <Route exact path="/" component={RegistrationPage} />
           {props.location.pathname !== "/" && <NavBar/>}
@@ -64,6 +66,7 @@ function App(props) {
           <Route exact path="/modify" component={ModifyProfile} />
           </div>
     </div>
+
   )
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

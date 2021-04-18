@@ -33,8 +33,10 @@ function Pin(props) {
                             <BsThreeDots className="icons"/>
                             <FiUpload className="icons"/>
                             </div>
-                        {props.user?.data?.savedposts?.find((e)=> e === props.id) ?  <Button text="unsave" selected={true} inline onClick={()=>savePost(props, props.id, props.user.data._id)}/> : 
-                        <Button text="Save" inline color="red" onClick={()=>savePost(props, props.id, props.user.data._id)}/> }
+                    
+                           {props.user?.data?.savedposts?.find((e)=> e === props.id) ?  (props?.user?.data._id !== post?.user?._id && <Button text="unsave" selected={true} inline onClick={()=>savePost(props, props.id, props.user.data._id)}/>) : 
+                        (props?.user?.data._id !== post?.user?._id  && <Button text="Save" inline color="red" onClick={()=>savePost(props, props.id, props.user.data._id)}/>) }
+                        
                         </Row>
                         <Row className="d-block justify-content-start text-left">
                             <p className="postTitle">{post.title}</p>

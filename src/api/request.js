@@ -254,7 +254,6 @@ export const savePost=async(props, id, myId)=>{
 }
 
 
-
 export const connectToFirebase =()=> {
    messaging.requestPermission()
      .then(async function() {
